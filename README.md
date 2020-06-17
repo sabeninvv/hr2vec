@@ -13,10 +13,10 @@ ___
 ### Packages installation:
 ```
 - pip3 install numpy
+- pip3 install tqdm
 - pip3 install torch==1.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 - pip3 install gensim
 - pip3 install stanfordnlp
-- pip3 install tqdm
 ```
 
 ```
