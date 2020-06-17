@@ -3,14 +3,14 @@
 ### Description:
 ##### Search for similarities between the ideal job profile and potential candidate.
 ```
-ideal_profile.json => parse 
+ideal_profile.txt => parse 
 candidates_profiles.json => parse
             ||
             \/
 search for similarities => ranging => save .json
 ```
 ___
-### Steps packages installation:
+### Packages installation:
 ```
 - pip3 install numpy
 - pip3 install torch==1.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
@@ -23,7 +23,22 @@ ___
 I advise you to use anaconda or virtual environments
 ```
 ___
+### Models download:
+- Upload and put in models/gensim/:
+    - [numberbatch-en-19.08.txt.gz](https://conceptnet.s3.amazonaws.com/downloads/2019/numberbatch/numberbatch-en-19.08.txt.gz)
+- Upload and put inmodels/stanfornlp/en_ewt_models/:
+    - [all files .pt](http://nlp.stanford.edu/software/stanfordnlp_models/0.2.0/en_ewt_models.zip)
+___
 ### Rules:
+- Files Must be:
+    - data/profile.txt
+    - data/candidates.json
+    - models/gensim/numberbatch-en-19.08.txt.gz
+    - models/stanfornlp/en_ewt_models/en_ewt.pretrain.pt
+    - models/stanfornlp/en_ewt_models/en_ewt_lemmatizer.pt
+    - models/stanfornlp/en_ewt_models/en_ewt_parser.pt
+    - models/stanfornlp/en_ewt_models/en_ewt_tagger.pt
+    - models/stanfornlp/en_ewt_models/en_ewt_tokenizer.pt
 - profile.txt:
     - write requirements for the candidate clearly
     - do not use abbreviations
@@ -39,7 +54,7 @@ ___
         - education
         - workExperience
 ___
-### Examlpe profile.txt:
+### Example profile.txt:
 ```
 Looking for experienced Carrier Account manager for Supply chain and logistics client in Singapore
 ...any text
@@ -82,7 +97,7 @@ Special Work Requirements:
 ...any text
 ```
 ___
-### Examlpe candidates.json:
+### Example candidates.json:
 ```
 {
     "id": "is",
@@ -90,7 +105,7 @@ ___
     "lastName": "lastName",
     "location": "location",
     "headline": "Business Development , Account management , AI & Data Analyst ",
-    "summary": "I have a very good client relationship across regions with customers and am a go getter for business. I coach and encourage teamwork to ensure the company\u00e2\u20ac\u2122s goals are achieved and demonstrate team player skills. \n\nI have experience in SAS enterprise products to seek inference of valuable data to plan strategies. I make practical recommendations that drive business create value and impact to stakeholders.\n\nI lead a team specializing in New Business Acquisition. Overall Customer management, I leverage my relationships to generate business effectively from Fintech, Logistics, Banking, Agro, Medical, Shipping, Hospitality, Aviation, Manufacturing, Pharma, Aviation oil and gas, Information Technology, Real-estate and Biotech Industries. I am responsible to coach the team developing skills to achieve sales targets.  I validate potential pipeline opportunities using Business Data Analytics that develops business globally by increasing % of opportunities quickly resulting in profitable business.\n\nSkills:  Salesforce CRM, Oracle ERP, Cloud, SaaS \n\nI collaborate with stakeholders to provide specialist strategies in determining appropriate analytic techniques and solutions to achieve maximum revenue and profitability goals.\n\n",
+    "summary": "...any text...\n\n",
     "industry": "Logistics and Supply Chain",
     "workExperience": [
         {
@@ -101,10 +116,10 @@ ___
                 "month": 8
             },
             "companyName": " Prism Mobility Pte",
-            "description": "Highlights   : Business Development, Supply Chain Strategy/Sales & Operations Planning :\n\n\u00e2\u20ac\u00a2Interest in: Category Management, Control Tower, Supply Chain Strategy/Sales & Operations Planning Transportation & Warehouse Management\n\n\u00e2\u20ac\u00a2Excellent client relationship across regions with customers.\n\u00e2\u20ac\u00a2I have excellent communication skill and good command over language, I have a very pleasing personality,\n\u00e2\u20ac\u00a2Encourage teamwork to ensure the company\u00e2\u20ac\u2122s goals are achieved and demonstrate team player skills \n\u00e2\u20ac\u00a2Ability in SAS enterprise products to seek inference of valuable data to plan strategies. I make practical recommendations that drive business create value and impact to stakeholders.\n\u00e2\u20ac\u00a2Collaborate with stakeholders to provide specialist strategies in determining appropriate analytic techniques and solutions to achieve maximum revenue and profitability goals.\n\u00e2\u20ac\u00a2New Business Acquisition. Overall Customer management, I leverage my relationships to generate business effectively from Fintech, Logistics, Banking, Medical, Shipping, Hospitality, Aviation, Manufacturing, Retail, Pharma, oil and gas, Information Technology, Real-estate and Biotech Industries.\n\u00e2\u20ac\u00a2Review Reports with top Management and track revenue by co coordinating with finance teams\n\u00e2\u20ac\u00a2Jointly plan an operations Strategy, approve sale documentation & contracts.\n\u00e2\u20ac\u00a2Validate potential pipeline opportunities using Business Data Analytics globally by increasing % of opportunities to win resulting in profitable business.\n\n\u00e2\u20ac\u00a2Key Skills: Oracle PL SQL -  Salesforce CRM, SaaS, Global Mobility Sales specialist, Corporate Sales, New Business Development, Team Management, Team Handling, Cloud Management, Sales Management, Team Leadership, Direct Sales, Consulting, Incentive and People Management, ability to analyse, model and interpret data.   \n"
+            "description": "...any text...\n"
         },
         {
-            "title": "Head Business Development and Sales  - India and South East Asia",
+            "title": "Head Business Development and Sales ...any text...",
             "endedOn": {
                 "year": 2017,
                 "month": 11
@@ -116,7 +131,7 @@ ___
             },
             "companyUrn": "urn:li:fs_salesCompany:2583373",
             "companyName": "Santa Fe Group",
-            "description": "Effectively managed end-to-end business development, marketing and sales activities.\nResponsible for generating business across the region that is profitable\nImplemented the strategies, change management aligned with Global Corporate initiatives.\nHandled strategic planning, deciding on hiring, budget & cost. \nLed the sales activities, empowered team in comprehensive sales discussions and demos, enabling clients to take faster decisions, thereby meeting revenue targets.\nI effectively managed end-to-end business development, marketing and sales activities \nImplemented the strategies, change management aligned with Global Corporate initiatives."
+            "description": "...any text..."
         },        
     ],
     "education": [
@@ -177,4 +192,8 @@ ___
     ],
     "linkedinPremium": false
 }
+```
+### Run from cmd/powershell/another:
+```
+python main.py
 ```
