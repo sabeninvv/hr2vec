@@ -45,7 +45,7 @@ def load_profile(nlp, path=r'data/profile.txt'):
 
 def file_operation(path, write=False, data=None):
     mode = 'w' if write else 'r'
-    with open(path, mode=mode) as f:
+    with open(path, mode=mode, encoding='utf8') as f:
         if write:
             json.dump(data, f)
         else:
