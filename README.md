@@ -7,7 +7,7 @@ ideal_profile.txt => parse
 candidates_profiles.json => parse
             ||
             \/
-search for similarities => ranging => save .json
+search for similarities => ranging => save .csv/.json
 ```
 ___
 ### Packages installation:
