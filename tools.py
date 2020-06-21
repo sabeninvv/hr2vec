@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from tqdm import tqdm
 import datetime
 import warnings
@@ -195,20 +196,61 @@ def parse_all(model, nlp, data, profile):
     return data_parsed
 
 
-def sort_and_save_data(parse, candidates, koef_industry=1., koef_education=0.8, koef_workExperience=1.):
+def save2csv(candidates, koef, sort_inxs, max_candidates):
+    sort_inxs = sort_inxs[::-1]
+    sort_inxs = sort_inxs[:max_candidates]
+
+    df = pd.DataFrame(columns=['First Name', 'Last Name', 'Title', 'Company Name', 'LinkedIn', 'Score'])
+
+    for inx in sort_inxs:
+        try:
+            firstName = candidates[inx]['firstName']
+        except:
+            firstName = ''
+
+        try:
+            lastName = candidates[inx]['lastName']
+        except:
+            lastName = ''
+
+        try:
+            title = candidates[inx]['workExperience'][0]['title']
+        except:
+            title = ''
+
+        try:
+            companyName = candidates[inx]['workExperience'][0]['companyName']
+        except:
+            companyName = ''
+
+        try:
+            account = candidates[inx]['socialAccounts'][0]['linkedin']
+        except:
+            account = ''
+
+        df = df.append({'First Name': firstName,
+                        'Last Name': lastName,
+                        'Title': title,
+                        'Company Name': companyName,
+                        'LinkedIn': account,
+                        'Score': round(koef[inx] * 100, 1)}, ignore_index=True)
+
+    df.to_csv('data/sorted_candidates.csv', mode='w', index=True, sep='|', encoding='utf8')
+
+
+def sort_and_save_data(parse, candidates, koef_industry=1., koef_education=0.8, koef_workExperience=1.,
+                       max_candidates=20, save_json=False):
     for inx in range(parse.shape[-1]):
         parse[:, inx] = (parse[:, inx] - parse[:, inx].min()) / (parse[:, inx].max() - parse[:, inx].min())
-
     koef = parse[:, 0] * koef_industry + parse[:, 1] * koef_education + parse[:, 2] * koef_workExperience
+    koef /= 3.
     sort_inxs = np.argsort(koef)
-
-    new_data = []
-    inx = -1
-    while inx != -len(sort_inxs):
-        new_data.append(candidates[sort_inxs[inx]])
-        inx -= 1
-
-    _ = file_operation(path=r'data/sorted_candidates.json', write=True, data=new_data)
-
+    save2csv(candidates=candidates, koef=koef, sort_inxs=sort_inxs, max_candidates=max_candidates)
+    if save_json:
+        new_data = []
+        inx = -1
+        while inx != -len(sort_inxs):
+            new_data.append(candidates[sort_inxs[inx]])
+            inx -= 1
+        _ = file_operation(path=r'data/sorted_candidates.json', write=True, data=new_data)
     print('Done Saving successful!')
-

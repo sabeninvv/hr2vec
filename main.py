@@ -8,7 +8,8 @@ def main():
     candidates = tools.file_operation(path=r'data/candidates.json')
     parsed_data = tools.parse_all(model=model, nlp=nlp, data=candidates, profile=profile)
     tools.sort_and_save_data(parse=parsed_data, candidates=candidates,
-                             koef_industry=1., koef_education=0.8, koef_workExperience=1.)
+                             koef_industry=1., koef_education=0.8, koef_workExperience=1.,
+                             max_candidates=20, save_json=False)
 
 
 if __name__ == '__main__':
