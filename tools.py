@@ -9,16 +9,17 @@ import stanfordnlp
 warnings.simplefilter("ignore")
 
 
-def load_gensim_model(path):
+def load_gensim_model(path, binary=False):
     print('Loading Gensim Model. Wait 10-15 minutes')
-    model = KeyedVectors.load_word2vec_format(path)
+    model = KeyedVectors.load_word2vec_format(path, binary=True, unicode_errors='ignore') if binary \
+                                                        else KeyedVectors.load_word2vec_format(path)
     print('Done loading Gensim Model!')
     print('---')
     return model
 
 
-def load_stanfordnlp_model(path):
-    nlp = stanfordnlp.Pipeline(lang='en',
+def load_stanfordnlp_model(path, lang='en'):
+    nlp = stanfordnlp.Pipeline(lang=lang,
                                use_gpu=False,
                                processors='tokenize,mwt,pos,lemma,depparse',
                                pos_batch_size=1000,
